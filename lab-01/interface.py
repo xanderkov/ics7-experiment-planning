@@ -21,7 +21,7 @@ def getModelingData(params_generator, params_handler, time):
     source_generator2 = Generator(gauss_t, params_generator)
     handler_generator1 = Handler(gauss_t, params_handler)
     gov = ModelingGoverner(
-        time, [source_generator1, source_generator2], [handler_generator1], 0
+        time, [source_generator1], [handler_generator1], 0
     )
     s = gov.event()
 
@@ -68,9 +68,9 @@ def draw():
 
     plot1 = [[], []]
     plot_theory1 = [[], []]
-    i = 0.001
-    while i < 0.103:
-        data = getModelingData( [1 / i, 0.05], [1 / 0.1, 0.5], 1000)
+    i = 0.1
+    while i < 0.203:
+        data = getModelingData( [1 / i, 0.05], [1 / 0.1, 0.05], 1000)
         if data[1] > 0:
             plot1[0].append(1 / data[1])
         else:
@@ -92,7 +92,7 @@ def draw():
 
     plot2 = [[], []]
     plot_theory2 = [[], []]
-    i = 0.098
+    i = 0.2
     while i < 1:
         data = getModelingData([1 / 0.1, 0.5], [1 / i, 0.05], 1000)
         #print("mx = {:10.3f}, int = {:6.6f}, t_hand = {:6.3f}, t_cr = {:6.3f}, z = {:6.3f}, tin = {:6.3f}".format(1 / i, i , data[2], data[1], data[2]/data[1], data[0]))
@@ -119,17 +119,17 @@ def draw():
     plot_theory3 = [[], []]
 
     # print()
-    i = 0.098
+    i = 0.1
     while i < 10:
-        data = getModelingData([1 / 0.1, 0.5], [1 / i, 0.5], 1000)
+        data = getModelingData([1 / 0.1, 1], [1 / i, 1], 1000)
         if data[1] > 0:
             plot3[0].append(data[2] / data[1])
-        else:
-            plot3[0].append(100000)
-        plot3[1].append(data[0])
+            plot3[1].append(data[0])
+        # else:
+        #     plot3[0].append(100000)        
 
-        plot_theory3[0].append(0.2 / i)
-        plot_theory3[1].append(data[0])
+        # plot_theory3[0].append(0.2 / i)
+        # plot_theory3[1].append(data[0])
         if i < 0.1:
             i += 0.0005
         elif i < 0.2:
@@ -144,6 +144,7 @@ def draw():
     # pylab.plot(plot_theory3[0], plot_theory3[1], color="red", label="теория")
     pylab.plot(plot3[0], plot3[1], color="green", label="T преб(загрузки)")
     pylab.legend()
+
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
@@ -173,23 +174,28 @@ def read():
 
 Label(text="интенсивность поступления заявок: ").grid(row=0, column=0)
 entry_mx_1 = Entry(root)
+entry_mx_1.insert(0, 0.1) 
 entry_mx_1.grid(row=0, column=1)
 
 Label(text="разброс поступления заявок: ").grid(row=0, column=2)
 entry_dx_1 = Entry(root)
+entry_dx_1.insert(0, 0.5) 
 entry_dx_1.grid(row=0, column=3)
 
 Label(text="интенсивность обслуживания заявок: ").grid(row=1, column=0)
 entry_mx_2 = Entry(root)
+entry_mx_2.insert(0, 0.1)
 entry_mx_2.grid(row=1, column=1)
 
 Label(text="разброс обслуживания заявок: ").grid(row=1, column=2)
 entry_dx_2 = Entry(root)
+entry_dx_2.insert(0, 0.5)
 entry_dx_2.grid(row=1, column=3)
 
 
 Label(text="время моделирования: ").grid(row=2, column=0)
 entry_time = Entry(root)
+entry_time.insert(0, 1000)
 entry_time.grid(row=2, column=1)
 
 
