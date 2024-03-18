@@ -208,20 +208,6 @@ class ModelingGoverner:
                         
         return self.stats
                         
-if __name__ == "__main__":                            
-    source_generator1 = Generator(uniform_t, [8, 10])
-    source_generator2 = Generator(uniform_t, [8, 10])
-    source_generator3 = Generator(uniform_t, [8, 10])
-    source_generator4 = Generator(uniform_t, [8, 10])
-    handler_generator1 = Handler(exp_t, [0.01])
-    handler_generator2 = Handler(exp_t, [0.01])
-    handler_generator3 = Handler(exp_t, [0.01])
-    handler_generator4 = Handler(exp_t, [0.01])
-    gov = ModelingGoverner(100, [source_generator1], #, source_generator2, source_generator3, source_generator4],
-                           [handler_generator1], 0) #, handler_generator2, handler_generator3, handler_generator4], 0)
-    s = gov.event()
-    s.print()
-    print(s.getMaxTime(), len(s.getRequests()))
 
 
             
